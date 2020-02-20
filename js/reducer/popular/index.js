@@ -22,16 +22,19 @@ const defaultState={
  */
 export default function onAction(state = defaultState,action) {
     switch (action.type) {
-        case types.LOAD_POPULAR_SUCCESS:
+        case types.POPULAR_REFRESH_SUCCESS://下拉刷新成功
             return {
                 ...state,//延展操作符
                [action.storeName]:{
                    ... state[action.storeName],
-                   items:action.items,
+                   items:action.items,//原始数据
+                   projectModes:action.projectModes,//此次展示的数据
                    isLoading:false,
+                   hiddeLoadingMore:false,
+                   pageIndex:action.pageIndex,
                }
             };
-            case types.POPULAR_REFRESH:
+            case types.POPULAR_REFRESH://下拉刷新
                 return {
                     ...state,//延展操作符
                     [action.storeName]:{
@@ -40,12 +43,34 @@ export default function onAction(state = defaultState,action) {
                     }
                 };
 
-        case types.LOAD_POPULAR_FAIL:
+        case types.POPULAR_REFRESH_FAIL://下拉刷新失败
             return {
                 ...state,//延展操作符
                 [action.storeName]:{
                     ... state[action.storeName],
                     isLoading:false,
+                }
+            };
+
+        case types.POPULAR_LOAD_MORE_SUCCESS://上拉加载更多成功
+            return {
+                ...state,//延展操作符
+                [action.storeName]:{
+                    ... state[action.storeName],
+                    projectModes:action.projectModes,
+                    hiddeLoadingMore:false,
+                    pageIndex:action.pageIndex,
+
+                }
+            };
+        case types.POPULAR_LOAD_MORE_FAIL://上拉加载失败
+            return {
+                ...state,//延展操作符
+                [action.storeName]:{
+                    ... state[action.storeName],
+                    hiddeLoadingMore:true,
+                    pageIndex:action.pageIndex,
+
                 }
             };
         default :return state;
