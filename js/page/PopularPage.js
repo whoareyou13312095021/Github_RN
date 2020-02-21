@@ -136,9 +136,25 @@ class PopularTab extends Component{
                               }
                               ListFooterComponent={()=>this.genIndicator()}
                               onEndReached={
-                                  ()=>this.loadData(true)
+                                  ()=>{
+                                      console.log('--------onEndReached------------')
+                                      setTimeout(()=>{//增加一个定时器 是为了onEndReached在onMomentumScrollBegin后面执行
+                                          if(this.canLoadMore){
+                                              console.log(this.canLoadMore+'111111')
+                                              this.loadData(true)
+                                              this.canLoadMore=false
+                                          }
+                                      },100)
+
+
+                                  }
                               }
                               onEndReachedThreshold={0.5}
+                              onMomentumScrollBegin={()=>{
+                              this.canLoadMore=true //fix 初始化时页调用onEndReached的问题
+                                  console.log('--------onMomentumScrollBegin------------')
+                              }
+                              }
                     />
                     <Toast ref={'toast'}
                     position={'center'}/>
@@ -153,6 +169,7 @@ const mapDispatchToPrpos=dispatch=>({
     onRefreshPopular :(storeName,url,pageSize)=>dispatch(actions.onRefreshPopular(storeName,url,pageSize)),
     onLoadMorePopular:(storeName,pageIndex,pageSize,items,callBack)=>dispatch(actions.onLoadMorePopular(storeName,pageIndex,pageSize,items,callBack))
 })
+//connect只是个function 并不一定非要放在export后面
 const PopularTabPage =connect(mapStateToPrpos,mapDispatchToPrpos)(PopularTab)
 const styles = StyleSheet.create({
     container: {

@@ -68,6 +68,7 @@ function handleData(dispatch,storeName,data,pageSize) {
     }
     dispatch({
         type:types.POPULAR_REFRESH_SUCCESS,
+        items:fixItems,//在这里加了这句 否则上拉加载不起作用
         projectModes:pageSize>fixItems.length?fixItems.length:fixItems.slice(0,pageSize),//第一次要加载的数据
         storeName,
         pageIndex:1,
