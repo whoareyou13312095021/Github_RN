@@ -12,6 +12,7 @@ import {onRefreshPopular} from "../action/popular";
 const URL =`https://api.github.com/search/repositories?q=`;
 const QUERY_STR = `&sort=stars`;
 const THEME_COLOR='red';
+import NavigationBar from '../common/NavigationBar'
 
 export default class PopularPage extends React.Component {
     constructor(props){
@@ -32,6 +33,16 @@ export default class PopularPage extends React.Component {
         return tans
     }
     render() {
+        let statusBar = {
+            backgroundColor:THEME_COLOR,
+            barStyle:'light-content'
+        }
+        let navigationBar = <NavigationBar
+        title={'最热'}
+        statusBar={statusBar}
+        style={{backgroundColor:THEME_COLOR}}
+
+        />
         const TabNavigator=createAppContainer(
             createMaterialTopTabNavigator(
                 this._genTabs(),
@@ -53,6 +64,7 @@ export default class PopularPage extends React.Component {
         );
         return (
             <View style={styles.container}>
+                {navigationBar}
                 <TabNavigator/>
             </View>
         );

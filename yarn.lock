@@ -1076,6 +1076,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
+GitHubTrending@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.npm.taobao.org/GitHubTrending/download/GitHubTrending-3.1.5.tgz#feadaded0cb339a274e08f4910203a45d008df1a"
+
 abab@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npm.taobao.org/abab/download/abab-2.0.3.tgz?cache=0&sync_timestamp=1573609091746&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fabab%2Fdownload%2Fabab-2.0.3.tgz#623e2075e02eb2d3f2475e49f99c91846467907a"
