@@ -9,7 +9,7 @@ import React from "react";
 import {createAppContainer} from 'react-navigation';
 import  {createBottomTabNavigator,BottomTabBar} from  'react-navigation-tabs'
 import {connect} from 'react-redux'
-
+import {DeviceInfo} from 'react-native'//判断机型
 
 const TAB = {
     //在这里配置路由

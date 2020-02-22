@@ -1,6 +1,7 @@
 import  {combineReducers} from 'redux';
 import theme from './theme'
 import populor from './popular'
+import trending from './trending'
 //
 // /**
 //  *1. 合并reducer
@@ -9,6 +10,8 @@ import populor from './popular'
 const  index=combineReducers({
    theme:theme,
     populor:populor,
+    trending:trending,
+
 
 });
 export default index;

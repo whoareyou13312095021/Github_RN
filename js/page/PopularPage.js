@@ -13,6 +13,7 @@ const URL =`https://api.github.com/search/repositories?q=`;
 const QUERY_STR = `&sort=stars`;
 const THEME_COLOR='red';
 import NavigationBar from '../common/NavigationBar'
+import {DeviceInfo} from 'react-native'//判断机型
 
 export default class PopularPage extends React.Component {
     constructor(props){
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#447733',
         // justifyContent:'center',
         // alignItems:'center'
+        marginTop:DeviceInfo.isIPhoneX_deprecated?30:0
     },
     containerTab: {
         flex: 1,

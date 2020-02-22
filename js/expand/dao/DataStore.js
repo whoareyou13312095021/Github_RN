@@ -1,19 +1,21 @@
 import {AsyncStorage} from 'react-native';
-
+import Trending from 'GitHubTrending';
+export const FLAT_STORAGE = {flag_popular:'popular',flag_trending:'trending'};
 export default class DataStore {
 
     /**
      * 获取数据，优先获取本地数据，如果无本地数据或本地数据过期则获取网络数据
+     * @param flag  这个flag标识就是FLAT_STORAGE里面的标识
      * @param url
      * @returns {Promise}
      */
-    fetchData(url) {
+    fetchData(url,flag) {
         return new Promise((resolve, reject) => {
             this.fetchLocalData(url).then((wrapData) => {
                 if (wrapData && DataStore.checkTimestampValid(wrapData.timestamp)) {
                     resolve(wrapData);
                 } else {
-                    this.fetchNetData(url).then((data) => {
+                    this.fetchNetData(url,flag).then((data) => {
                         resolve(this._wrapData(data));
                     }).catch((error) => {
                         reject(error);
@@ -21,7 +23,7 @@ export default class DataStore {
                 }
 
             }).catch((error) => {
-                this.fetchNetData(url).then((data) => {
+                this.fetchNetData(url,flag).then((data) => {
                     resolve(this._wrapData(data));
                 }).catch((error => {
                     reject(error);
@@ -67,24 +69,41 @@ export default class DataStore {
     /**
      * 获取网络数据
      * @param url
+     *  @param flag
      * @returns {Promise}
      */
-    fetchNetData(url) {
+    fetchNetData(url,flag) {
         return new Promise((resolve, reject) => {
-            fetch(url)
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error('Network response was not ok.');
-                })
-                .then((responseData) => {
-                    this.saveData(url, responseData)
-                    resolve(responseData);
-                })
-                .catch((error) => {
-                    reject(error);
-                })
+            //这里面判断一下请求的flag
+            if(flag!==FLAT_STORAGE.flag_trending){
+                fetch(url)
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Network response was not ok.');
+                    })
+                    .then((responseData) => {
+                        this.saveData(url, responseData)
+                        resolve(responseData);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+            }else {
+                new Trending().fetchTrending(url)
+                    .then(items=>{
+                        if(!items){
+                            throw  new Error('responseData is mull')
+                        }
+                        this.saveData(url,items);
+                        resolve(items);
+                    })
+                    .catch(error=>{
+                        reject(error);
+                    })
+            }
+
         })
     }
 
