@@ -115,6 +115,9 @@ class PopularTab extends Component{
         return <PopularItem
        item={item}
        onSelect={()=>{
+           NavigationUtil.goPage({
+               projectModes: item
+           },'DetailPage')
            }
         }/>
     }
