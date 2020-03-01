@@ -25,7 +25,13 @@ const mainNavigator =createStackNavigator(
                 header:null//隐藏header
             },
         },
-        DetailPage:DetailPage,
+        // DetailPage:DetailPage,
+        DetailPage:{
+            screen:DetailPage,
+            navigationOptions:{
+                header:null//隐藏header
+            },
+        },
         FetchDemo:{
             screen:FetchDemo,
             navigationOptions:{

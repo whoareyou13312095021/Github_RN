@@ -3,17 +3,19 @@ import {TouchableOpacity} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 export default class ViewUtil {
     //提供一些静态方法
-    static getLeftBackButton(callBack){
+    /**
+     * 获取左侧返回按钮
+     * @param callBack
+     * @returns {*}
+     */
+    static getLeftBackButton(callBack) {
         return <TouchableOpacity
-        style={{padding:8,paddingLeft:12}}
-        onPress={callBack}
-
-        >
-        <Ionicons
-        name={'ios-arrow-back'}
-        size={26}
-        style={{color:'white'}}
-        />
+            style={{padding: 8, paddingLeft: 12}}
+            onPress={callBack}>
+            <Ionicons
+                name={'ios-arrow-back'}
+                size={26}
+                style={{color: 'white'}}/>
         </TouchableOpacity>
     }
 

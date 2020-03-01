@@ -27,7 +27,7 @@ export default class NavigationBar extends Component{
         leftButton:PropTypes.element
     };
     //设置默认属性
-    static  defauleprops = {
+    static  defaultProps  = {//这一块有问题  我原来写的是defaultprops
     // title:'test,',  先不设置默认title
         statusBar:{
         barStyle: 'light-content',
